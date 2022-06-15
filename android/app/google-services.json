@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "353583084425",
+    "project_id": "toko-pancing-1ffc6",
+    "storage_bucket": "toko-pancing-1ffc6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353583084425:android:6cf41ed11594103f3ba758",
+        "android_client_info": {
+          "package_name": "com.example.posttest7_2009106050_riskykurniawan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "353583084425-lf2iopq2had8tgm6b66k1grfnfoi9p1f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVJ8dRcIa9po3N-ARvW5fe5q2Eck5QVAE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "353583084425-lf2iopq2had8tgm6b66k1grfnfoi9p1f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
