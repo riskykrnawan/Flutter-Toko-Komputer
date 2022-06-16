@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '/constants.dart';
-import '/models/Product.dart';
+// import '/models/Product.dart';
+import '/models/produk.dart';
+import '/models/products_repository.dart';
 
 import 'buy_and_cart.dart';
 import 'color_and_stock.dart';
@@ -22,7 +24,7 @@ class Body extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(top: size.height * 0.34),
+                  margin: EdgeInsets.only(top: size.height * 0.3),
                   padding: EdgeInsets.only(
                     top: 50,
                     left: kDefaultPaddin,

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '/models/Product.dart';
+// import '/models/Product.dart';
+import '/models/produk.dart';
+import 'package:provider/provider.dart';
+import '/models/products_repository.dart';
+import 'package:posttest6_2009106050_riskykurniawan/models/state_model.dart';
 
 import '../../../constants.dart';
 
@@ -25,15 +29,19 @@ class AddToCart extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18),
               border: Border.all(
-                color: product.color,
+                color: Colors.blueGrey,
               ),
             ),
             child: IconButton(
               icon: SvgPicture.asset(
                 "assets/icons/add_to_cart.svg",
-                color: product.color,
+                // color: product.color,
               ),
-              onPressed: () {},
+              onPressed: () {
+                final model =
+                    Provider.of<AppStateModel>(context, listen: false);
+                model.addProductToCart(product.id);
+              },
             ),
           ),
           Expanded(
@@ -43,9 +51,13 @@ class AddToCart extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18)),
-                      primary: product.color,
+                      // primary: product.color,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      final model =
+                          Provider.of<AppStateModel>(context, listen: false);
+                      model.addProductToCart(product.id);
+                    },
                     child: Text(
                       "Buy Now".toUpperCase(),
                       style: const TextStyle(
