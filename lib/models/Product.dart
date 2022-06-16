@@ -58,7 +58,7 @@ List<Product> products = [
       color: Color.fromARGB(255, 251, 144, 120)),
   Product(
     id: 6,
-    title: "RTX 9999 XTI",
+    title: "RTX 99999 XTI",
     price: 32000,
     stock: 12,
     description: dummyText,
