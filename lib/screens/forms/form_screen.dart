@@ -8,9 +8,9 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:posttest6_2009106050_riskykurniawan/getx_controller/form_controller.dart';
+import 'package:acul_komputer/getx_controller/form_controller.dart';
 import 'package:path/path.dart' as path;
-import 'package:posttest6_2009106050_riskykurniawan/screens/forms/components/item_card.dart';
+import 'package:acul_komputer/screens/forms/components/item_card.dart';
 
 class MyForm extends StatelessWidget {
   MyForm({Key? key}) : super(key: key);

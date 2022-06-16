@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:posttest6_2009106050_riskykurniawan/screens/home/home_screen.dart';
-import 'package:posttest6_2009106050_riskykurniawan/screens/login/login_screen.dart';
+import 'package:acul_komputer/screens/home/home_screen.dart';
+import 'package:acul_komputer/screens/login/login_screen.dart';
+import 'package:acul_komputer/screens/register/register_screen.dart';
 import 'screens/main/main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,7 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) {
-          return const MyMainScreen();
+          // return const MyMainScreen();
+          return Register();
         }),
       );
     });

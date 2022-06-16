@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:posttest6_2009106050_riskykurniawan/screens/home/components/jumbotron.dart';
+import 'package:acul_komputer/screens/home/components/jumbotron.dart';
 import '/constants.dart';
 // import '/models/Product.dart';
 import '/models/produk.dart';
