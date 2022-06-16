@@ -1,3 +1,4 @@
+import 'package:acul_komputer/screens/main/main_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,7 @@ class _LoginState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  late bool _success;
+  bool? _success;
   String? _userEmail;
 
   @override
@@ -30,11 +31,37 @@ class _LoginState extends State<Login> {
           email: _emailController.text,
           password: _passwordController.text
         );
+        setState(() {
+          _success = true;
+        });
+        Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => const MyMainScreen()));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("User tidak ditemukan."),
+            ),
+          );
           print('No user found for that email.');
         } else if (e.code == 'wrong-password') {
-          print('Wrong password provided for that user.');
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Password tidak benar."),
+            ),
+          );
+        } else if (e.code == 'invalid-email') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Email tidak valid."),
+            ),
+          );
+        } else if (e.code == 'unknown') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Field tidak boleh kosong."),
+            ),
+          );
         }
       }
     }
@@ -99,6 +126,7 @@ class _LoginState extends State<Login> {
               text: 'Login',
               height: 30,
               color: Colors.blueAccent,
+
               pressEvent: () async {
                 _login();
               },
@@ -111,7 +139,7 @@ class _LoginState extends State<Login> {
               const Text('don\'t have account?'),
               TextButton(
                 child: const Text(
-                  'Login',
+                  'Register',
                 ),
                 onPressed: () {
                   Navigator.push(

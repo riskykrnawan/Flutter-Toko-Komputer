@@ -36,9 +36,29 @@ class RegisterState extends State<Register> {
         );
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
-          print('The password provided is too weak.');
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Password terlalu lemah."),
+            ),
+          );
         } else if (e.code == 'email-already-in-use') {
-          print('The account already exists for that email.');
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Email sudah terdaftar."),
+            ),
+          );
+        } else if (e.code == 'invalid-email') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Email tidak valid."),
+            ),
+          );
+        } else if (e.code == 'unknown') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Field tidak boleh kosong."),
+            ),
+          );
         }
       } catch (e) {
         print(e);
