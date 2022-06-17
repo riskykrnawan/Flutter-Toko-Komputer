@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '/constants.dart';
 // import '/models/Product.dart';
-import '/models/produk.dart';
-import '/models/products_repository.dart';
+import '../../../models/Product.dart';
+import '../../../models/ProductRepository.dart';
 
 import 'buy_and_cart.dart';
 import 'color_and_stock.dart';

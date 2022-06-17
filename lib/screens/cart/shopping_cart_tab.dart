@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 import 'styles.dart';
-import '/models/produk.dart';
+import '../../models/Product.dart';
 import '/models/state_model.dart';
 
 const double _kDateTimePickerHeight = 216;

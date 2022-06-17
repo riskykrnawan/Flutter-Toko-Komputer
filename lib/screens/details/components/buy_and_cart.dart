@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 // import '/models/Product.dart';
-import '/models/produk.dart';
+import '../../../models/Product.dart';
 import 'package:provider/provider.dart';
-import '/models/products_repository.dart';
+import '../../../models/ProductRepository.dart';
 import 'package:acul_komputer/models/state_model.dart';
 
 import '../../../constants.dart';

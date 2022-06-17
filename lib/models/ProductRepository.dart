@@ -1,4 +1,4 @@
-import 'produk.dart';
+import 'Product.dart';
 
 class ProductsRepository {
   static const products = <Product>[

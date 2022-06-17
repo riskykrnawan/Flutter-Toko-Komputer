@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart' as foundation;
 
-import 'produk.dart';
-import 'products_repository.dart';
+import 'Product.dart';
+import 'ProductRepository.dart';
 
 double _salesTaxRate = 0.06;
 double _shippingCostPerItem = 7;
