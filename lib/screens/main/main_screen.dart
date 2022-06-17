@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../getx_controller/dashboard_controller.dart';
+import '../profile/profile_screen.dart';
 import '/screens/forms/form_screen.dart';
 import '/screens/home/home_screen.dart';
 import '/screens/toko_saya/toko_saya_screen.dart';
@@ -21,6 +22,7 @@ class MyMainScreen extends StatelessWidget {
                   const HomeScreen(),
                   MyForm(),
                   TokoSaya(),
+                  Profile(),
                 ],
               ),
             ),
@@ -44,10 +46,17 @@ class MyMainScreen extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.person,
+                    Icons.people,
                     color: Color(0xff515979),
                   ),
-                  label: 'Account',
+                  label: 'About Us',
+                ),
+                 BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.person_add,
+                    color: Color(0xff515979),
+                  ),
+                  label: 'My Profile',
                 ),
               ],
             ));
