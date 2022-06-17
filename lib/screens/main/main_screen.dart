@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:acul_komputer/screens/cart/shopping_cart_tab.dart';
 import '../../getx_controller/dashboard_controller.dart';
+import '../profile/profile_screen.dart';
 import '/screens/forms/form_screen.dart';
 import '/screens/home/home_screen.dart';
 import '/screens/toko_saya/toko_saya_screen.dart';
