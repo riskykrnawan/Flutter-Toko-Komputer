@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '/models/Product.dart';
+// import '/models/Product.dart';
+import '../../../models/Product.dart';
+import '../../../models/ProductRepository.dart';
 import '/screens/details/components/body.dart';
 import '/screens/details/details_screen.dart';
 
@@ -30,7 +32,7 @@ class ItemCard extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(kDefaultPaddin),
               decoration: BoxDecoration(
-                color: product.color,
+                // color: product.color,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Hero(
@@ -42,7 +44,7 @@ class ItemCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin / 4),
             child: Text(
-              product.title,
+              product.name,
               style: const TextStyle(color: kTextLightColor),
             ),
           ),

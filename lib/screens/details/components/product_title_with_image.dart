@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '/models/Product.dart';
+// import '/models/Product.dart';
+import '../../../models/Product.dart';
+import '../../../models/ProductRepository.dart';
 
 import '../../../constants.dart';
 
@@ -22,11 +24,11 @@ class ProductTitleWithImage extends StatelessWidget {
             height: 20,
           ),
           Text(
-            product.title,
+            product.name,
             style: const TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Color.fromARGB(255, 0, 0, 0),
             ),
           ),
           const SizedBox(height: kDefaultPaddin),
@@ -35,11 +37,17 @@ class ProductTitleWithImage extends StatelessWidget {
               RichText(
                 text: TextSpan(
                   children: [
-                    const TextSpan(text: "Price\n"),
+                    const TextSpan(
+                      text: "Price\n",
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
                     TextSpan(
                       text: "Rp. ${product.price}",
                       style: Theme.of(context).textTheme.headline4?.copyWith(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),

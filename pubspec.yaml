@@ -1,4 +1,4 @@
-name: posttest6_2009106050_riskykurniawan
+name: acul_komputer
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -46,6 +46,7 @@ dependencies:
   path: ^1.8.1
   dropdown_button2: ^1.5.2
   smooth_page_indicator: ^1.0.0+2
+  provider: ^6.0.3
 
 dev_dependencies:
   flutter_test:

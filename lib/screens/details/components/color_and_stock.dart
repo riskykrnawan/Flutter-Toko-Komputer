@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '/models/Product.dart';
-
+// import '/models/Product.dart';
+import '../../../models/Product.dart';
+import '../../../models/ProductRepository.dart';
 import '../../../constants.dart';
 
 class ColorAndSize extends StatelessWidget {
@@ -40,12 +41,11 @@ class ColorAndSize extends StatelessWidget {
               children: [
                 const TextSpan(text: "Stock\n"),
                 TextSpan(
-                  text: "${product.stock}",
-                  style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  )
-                ),
+                    text: "${product.stock}",
+                    style: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    )),
               ],
             ),
           ),

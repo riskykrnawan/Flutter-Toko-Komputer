@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:acul_komputer/screens/cart/shopping_cart_tab.dart';
 import '../../getx_controller/dashboard_controller.dart';
 import '../profile/profile_screen.dart';
 import '/screens/forms/form_screen.dart';
@@ -14,52 +16,45 @@ class MyMainScreen extends StatelessWidget {
     return GetBuilder<DashboardController>(
       init: DashboardController(),
       builder: (controller) {
-        return Scaffold(
-            body: SafeArea(
-              child: IndexedStack(
-                index: controller.tabIndex,
-                children: [
-                  const HomeScreen(),
-                  MyForm(),
-                  TokoSaya(),
-                  Profile(),
-                ],
+        return CupertinoTabScaffold(
+          tabBar: CupertinoTabBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.home),
+                label: "Products",
               ),
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              onTap: controller.changeTabIndex,
-              currentIndex: controller.tabIndex,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                    color: Color(0xff515979),
-                  ),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.add,
-                    color: Color(0xff515979),
-                  ),
-                  label: 'News',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.people,
-                    color: Color(0xff515979),
-                  ),
-                  label: 'About Us',
-                ),
-                 BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.person_add,
-                    color: Color(0xff515979),
-                  ),
-                  label: 'My Profile',
-                ),
-              ],
-            ));
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.shopping_cart),
+                label: "Shopping Cart",
+              ),
+              BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.profile_circled),
+                  label: "About Us"),
+            ],
+          ),
+          tabBuilder: (context, index) {
+            late final CupertinoTabView returnValue;
+
+            switch (index) {
+              case 0:
+                returnValue = CupertinoTabView(builder: (context) {
+                  return const CupertinoPageScaffold(child: HomeScreen());
+                });
+                break;
+              case 1:
+                returnValue = CupertinoTabView(builder: (context) {
+                  return const CupertinoPageScaffold(child: ShoppingCartTab());
+                });
+                break;
+              case 2:
+                returnValue = CupertinoTabView(builder: (context) {
+                  return CupertinoPageScaffold(child: TokoSaya());
+                });
+                break;
+            }
+            return returnValue;
+          },
+        );
       },
     );
   }

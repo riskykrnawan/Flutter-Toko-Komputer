@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '/constants.dart';
-import '/models/Product.dart';
+// import '/models/Product.dart';
+import '../../models/Product.dart';
+import '../../models/ProductRepository.dart';
 import '/screens/details/components/body.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -11,7 +13,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: product.color,
+      // backgroundColor: product.color,
       appBar: buildAppBar(context),
       body: Body(product: product),
     );
@@ -19,18 +21,21 @@ class DetailsScreen extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: product.color,
+      backgroundColor: Color.fromARGB(250, 250, 250, 250),
       elevation: 0,
       leading: IconButton(
         icon: SvgPicture.asset(
           'assets/icons/back.svg',
-          color: Colors.white,
+          color: Color.fromARGB(255, 0, 0, 0),
         ),
         onPressed: () => Navigator.pop(context),
       ),
       actions: <Widget>[
         IconButton(
-          icon: SvgPicture.asset("assets/icons/search.svg"),
+          icon: SvgPicture.asset(
+            "assets/icons/search.svg",
+            color: Color.fromARGB(255, 0, 0, 0),
+          ),
           onPressed: () {},
         ),
         const SizedBox(width: kDefaultPaddin / 2)
