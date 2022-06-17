@@ -1,3 +1,4 @@
+import 'package:acul_komputer/screens/profile/profile_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:acul_komputer/screens/cart/shopping_cart_tab.dart';
@@ -28,8 +29,7 @@ class MyMainScreen extends StatelessWidget {
                 label: "Shopping Cart",
               ),
               BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.profile_circled),
-                  label: "About Us"),
+                  icon: Icon(CupertinoIcons.profile_circled), label: "Profile"),
             ],
           ),
           tabBuilder: (context, index) {
@@ -48,7 +48,7 @@ class MyMainScreen extends StatelessWidget {
                 break;
               case 2:
                 returnValue = CupertinoTabView(builder: (context) {
-                  return CupertinoPageScaffold(child: TokoSaya());
+                  return CupertinoPageScaffold(child: MyProfile());
                 });
                 break;
             }

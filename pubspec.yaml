@@ -47,6 +47,10 @@ dependencies:
   dropdown_button2: ^1.5.2
   smooth_page_indicator: ^1.0.0+2
   provider: ^6.0.3
+  email_validator: ^2.0.1
+  string_validator: ^0.3.0
+  path_provider: ^2.0.4
+  shared_preferences: ^2.0.8
 
 dev_dependencies:
   flutter_test:
