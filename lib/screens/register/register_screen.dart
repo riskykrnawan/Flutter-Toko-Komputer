@@ -1,3 +1,6 @@
+import 'package:acul_komputer/getx_controller/register_controller.dart';
+import 'package:acul_komputer/screens/login/login_screen.dart';
+import 'package:acul_komputer/screens/profile/widgets/appbar_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,9 +11,28 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 // import 'package:acul_komputer/getx_controller/login_controller.dart';
 // import 'package:acul_komputer/getx_controller/register_controller.dart';
 
-import '../login/login_screen.dart';
+// import '../login/login_screen.dart';
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
+// final FirebaseAuth _auth = FirebaseAuth.instance;
+
+// class Register extends StatelessWidget {
+//   Register({Key? key}) : super(key: key);
+
+//   final GetxRegisterController tc = Get.put(GetxRegisterController());
+  // Widget form(BuildContext context) => 
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Color(0xFF2E394C), 
+//       resizeToAvoidBottomInset: false,
+//       appBar: buildAppBar(context),
+//       body: Center(
+//         child: 
+//             form(context),
+//         ),
+//     );
+//   }
+// }
 
 class Register extends StatefulWidget {
   final String title = 'Registration';
@@ -22,12 +44,15 @@ class RegisterState extends State<Register> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _fullnameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
   late bool _success;
   String? _userEmail;
   @override
   Widget build(BuildContext context) { 
-    // FirebaseFirestore firestore = FirebaseFirestore.instance;
-    // CollectionReference users = firestore.collection('users');
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference users = firestore.collection('users');
     void _register() async {
       try {
         final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -68,78 +93,109 @@ class RegisterState extends State<Register> {
       
     
     return Scaffold(
-      backgroundColor:const Color.fromARGB(255, 255, 255, 255),
-      body: ListView(
+      resizeToAvoidBottomInset: false,
+      appBar: buildAppBar(context),
+      backgroundColor: Color(0xFF2E394C),
+      body: Center(
+        child: Padding(
+      padding: EdgeInsets.all(20),
+      child: Column(
         children: [
+          SizedBox(height: 20),
           Center(
-            child: Image.asset(
-              "assets/images/login_logo.png",
-              width: MediaQuery.of(context).size.width*.4,
-              height: MediaQuery.of(context).size.width*.5,
+            child: Text("REGISTER", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white.withOpacity(.5))),
+          ),
+          SizedBox(height: 40),
+          Flexible(
+            child: TextField(
+              style: TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                filled: true,
+                border: InputBorder.none,
+                fillColor: Color.fromARGB(255, 55, 77, 116),
+                labelText: "Email",
+              ),
+              controller: _emailController,
+              ),
             ),
-          ),
-
-          SizedBox(
-            height: MediaQuery.of(context).size.height*.04,
-          ),
-
-          Form(
-            child: Column(children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
-                    child: TextFormField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Email',
-                      ),
-                    ),
-                  ),
-                ],
+          SizedBox(height: 20),
+          Flexible(
+            child: TextField(
+              style: TextStyle(color: Colors.white),
+              obscureText: true,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                filled: true,
+                border: InputBorder.none,
+                fillColor: Color.fromARGB(255, 55, 77, 116),
+                labelText: "Password",
               ),
-              
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
-                    child: TextFormField(
-                      obscureText: true,
-                      controller: _passwordController,
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Password',
-                      ),
-                    ),
-                  ),
-                ],
+              controller: _passwordController,
               ),
-            ],
-            )
-          ),
-
+            ),
+          SizedBox(height: 20),
+          Flexible(
+            child: TextField(
+              style: TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                filled: true,
+                border: InputBorder.none,
+                fillColor: Color.fromARGB(255, 55, 77, 116),
+                labelText: "Nama",
+              ),
+              controller: _fullnameController,
+              ),
+            ),
+          SizedBox(height: 20),
+          Flexible(
+            child: TextField(
+              style: TextStyle(color: Colors.white),
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                filled: true,
+                border: InputBorder.none,
+                fillColor: Color.fromARGB(255, 55, 77, 116),
+                labelText: "Nomor Telpon",
+              ),
+              controller: _phoneController,
+              ),
+            ),
+          SizedBox(height: 20),
+          Flexible(
+            child: TextField(
+              style: TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                filled: true,
+                border: InputBorder.none,
+                fillColor: Color.fromARGB(255, 55, 77, 116),
+                labelText: "Alamat",
+              ),
+              controller: _addressController,
+              ),
+            ),
+          SizedBox(height: 20),
           Container(
-            margin: const EdgeInsets.only(top: 30, right: 25, left: 25),
             child: AnimatedButton(
+              borderRadius: BorderRadius.circular(4.0),
               text: 'Register',
-              height: 30,
-              color: Colors.blueAccent,
+              buttonTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.normal),
+              color: Color(0xFF1F4E99),
               pressEvent: () async {
                 _register();
               },
             ),
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text('have account?'),
               TextButton(
                 child: const Text(
-                  'Login',
+                  'Sudah memiliki Akun?',
+                  style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.normal)
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -152,11 +208,22 @@ class RegisterState extends State<Register> {
               )
             ],
             ),
+
         ],
       ),
+    ), 
+    ),
     );
   }
 }
+
+
+
+
+
+
+
+
 
 // class Register extends StatelessWidget {
 //   Register({Key? key}) : super(key: key);

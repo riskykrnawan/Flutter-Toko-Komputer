@@ -111,7 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Deskripsi Profile',
+            'Alamat',
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w500,
@@ -139,7 +139,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  user.aboutMeDescription,
+                                  user.address,
                                   style: TextStyle(
                                     fontSize: 16,
                                     height: 1.4,

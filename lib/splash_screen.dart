@@ -38,10 +38,10 @@ class _SplashScreenState extends State<SplashScreen> {
     var height = MediaQuery.of(context).size.width / 1.4;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Color(0xFF2E394C),
       body: Center(
         child: Image.asset(
-          "assets/images/logo.png",
+          "assets/images/splash_logo.png",
           width: width,
           height: height,
         ),

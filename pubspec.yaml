@@ -51,6 +51,7 @@ dependencies:
   string_validator: ^0.3.0
   path_provider: ^2.0.4
   shared_preferences: ^2.0.8
+  custom_bottom_navigation_bar: ^0.0.1
 
 dev_dependencies:
   flutter_test:

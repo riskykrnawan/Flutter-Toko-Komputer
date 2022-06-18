@@ -8,11 +8,11 @@ class UserData {
   static const _keyUser = 'user';
 
   static User myUser = User(
-    image: "https://i.ytimg.com/vi/ye6P4FbHIe4/maxresdefault.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg",
     name: 'Test Test',
     email: 'aculkomputer@aculxcia.com',
     phone: '0822-5294-0003',
-    aboutMeDescription:
+    address:
         'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since. When an unknown printer took a galley.',
   );
 

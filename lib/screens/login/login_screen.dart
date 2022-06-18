@@ -35,7 +35,7 @@ class _LoginState extends State<Login> {
           _success = true;
         });
         Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => const MyMainScreen()));
+          .pushReplacement(MaterialPageRoute(builder: (context) => MyMainScreen()));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -67,33 +67,38 @@ class _LoginState extends State<Login> {
     }
 
     return Scaffold(
-      backgroundColor:const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Color(0xFF2E394C), 
       body: ListView(
         children: [
+          SizedBox(height: 50),
           Center(
             child: Image.asset(
-              "assets/images/login_logo.png",
+              "assets/images/logo.png",
               width: MediaQuery.of(context).size.width*.4,
               height: MediaQuery.of(context).size.width*.5,
             ),
           ),
 
-          SizedBox(
-            height: MediaQuery.of(context).size.height*.04,
-          ),
-
           Form(
             child: Column(children: [
+              Center(
+                child: Text("LOGIN", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white.withOpacity(.5))),
+              ),
+              
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
                     child: TextFormField(
+                      style: TextStyle(color: Colors.white),
                       controller: _emailController,
                       decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Email',
+                        contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                        filled: true,
+                        border: InputBorder.none,
+                        fillColor: Color.fromARGB(255, 55, 77, 116),
+                        labelText: "Email",
                       ),
                     ),
                   ),
@@ -106,11 +111,15 @@ class _LoginState extends State<Login> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
                     child: TextFormField(
+                      style: TextStyle(color: Colors.white),
                       obscureText: true,
                       controller: _passwordController,
                       decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Password',
+                        contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                        filled: true,
+                        border: InputBorder.none,
+                        fillColor: Color.fromARGB(255, 55, 77, 116),
+                        labelText: "Password",
                       ),
                     ),
                   ),
@@ -120,26 +129,27 @@ class _LoginState extends State<Login> {
             )
           ),
 
-          Container(
-            margin: const EdgeInsets.only(top: 30, right: 25, left: 25),
-            child: AnimatedButton(
-              text: 'Login',
-              height: 30,
-              color: Colors.blueAccent,
-
-              pressEvent: () async {
-                _login();
-              },
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
+            child: Container(
+              child: AnimatedButton(
+                borderRadius: BorderRadius.circular(4.0),
+                text: 'Login',
+                buttonTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.normal),
+                color: Color(0xFF1F4E99),
+                pressEvent: () async {
+                  _login();
+                },
+              ),
             ),
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text('don\'t have account?'),
               TextButton(
                 child: const Text(
-                  'Register',
+                  'Belum memiliki Akun?',
+                  style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.normal)
                 ),
                 onPressed: () {
                   Navigator.push(

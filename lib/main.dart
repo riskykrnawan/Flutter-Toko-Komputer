@@ -5,12 +5,6 @@ import 'package:provider/provider.dart';
 import '/splash_screen.dart';
 import 'package:get/get.dart';
 
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp();
-//   runApp(const MyApp());
-// }
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
@@ -19,7 +13,11 @@ class MyApp extends StatelessWidget {
       title: 'Acul Komputer',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-      ),
+        inputDecorationTheme: InputDecorationTheme(
+          labelStyle: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 15),
+          hintStyle: TextStyle(color: Colors.grey),
+        )
+        ),
       home: const SplashScreen(),
     );
   }
