@@ -45,7 +45,7 @@ class RegisterState extends State<Register> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _fullnameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   late bool _success;
   String? _userEmail;
@@ -53,6 +53,7 @@ class RegisterState extends State<Register> {
   Widget build(BuildContext context) { 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference users = firestore.collection('users');
+
     void _register() async {
       try {
         final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -160,7 +161,7 @@ class RegisterState extends State<Register> {
                 fillColor: Color.fromARGB(255, 55, 77, 116),
                 labelText: "Nomor Telpon",
               ),
-              controller: _phoneController,
+              controller: _phoneNumberController,
               ),
             ),
           SizedBox(height: 20),
@@ -198,6 +199,14 @@ class RegisterState extends State<Register> {
                   style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.normal)
                 ),
                 onPressed: () {
+                  users.add(
+                    {
+                      'fullname': _fullnameController.text,
+                      'email': _emailController.text,
+                      'phoneNumber': _phoneNumberController.text,
+                      'address': _addressController.text
+                    }
+                  );
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) {
@@ -208,7 +217,6 @@ class RegisterState extends State<Register> {
               )
             ],
             ),
-
         ],
       ),
     ), 
