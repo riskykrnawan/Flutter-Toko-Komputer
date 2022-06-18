@@ -31,7 +31,7 @@ class Body extends StatelessWidget {
                     right: kDefaultPaddin,
                   ),
                   decoration: const BoxDecoration(
-                    color: Colors.white,
+                    color: backColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(24),
                       topRight: Radius.circular(24),

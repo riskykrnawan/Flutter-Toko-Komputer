@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:acul_komputer/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:acul_komputer/screens/profile/user/user_data.dart';
 import 'package:acul_komputer/screens/profile/widgets/appbar_widget.dart';
@@ -20,6 +20,7 @@ class _EditImagePageState extends State<EditImagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backColor,
       resizeToAvoidBottomInset: false,
       appBar: buildAppBar(context),
       body: Column(
@@ -31,9 +32,9 @@ class _EditImagePageState extends State<EditImagePage> {
               child: const Text(
                 "Upload Foto Profile:",
                 style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold,
+                    color: kTextLightColor),
               )),
           Padding(
               padding: EdgeInsets.only(top: 20),
@@ -63,11 +64,12 @@ class _EditImagePageState extends State<EditImagePage> {
                   child: SizedBox(
                     width: 330,
                     height: 50,
-                    child: ElevatedButton(
+                    child: MaterialButton(
+                      color: Color(0xFF1F4E99),
                       onPressed: () {},
                       child: const Text(
                         'Update',
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 15, color: kTextLightColor),
                       ),
                     ),
                   )))

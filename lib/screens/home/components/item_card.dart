@@ -50,8 +50,8 @@ class ItemCard extends StatelessWidget {
           ),
           Text(
             "Rp. ${product.price}",
-            style: const TextStyle(
-                color: Color(0xff515979), fontWeight: FontWeight.bold),
+            style:
+                const TextStyle(color: kTextColor, fontWeight: FontWeight.bold),
           )
         ],
       ),

@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 import 'styles.dart';
 import '../../models/Product.dart';
 import '/models/state_model.dart';
-
-const double _kDateTimePickerHeight = 216;
 
 class ShoppingCartTab extends StatefulWidget {
   const ShoppingCartTab({Key? key}) : super(key: key);
@@ -16,11 +16,6 @@ class ShoppingCartTab extends StatefulWidget {
 }
 
 class _ShoppingCartTabState extends State<ShoppingCartTab> {
-  String? name;
-  String? email;
-  String? location;
-  String? pin;
-  DateTime dateTime = DateTime.now();
   final _currencyFormat = NumberFormat.currency(symbol: '\Rp');
 
   SliverChildBuilderDelegate _buildSliverChildBuilderDelegate(
@@ -64,6 +59,39 @@ class _ShoppingCartTabState extends State<ShoppingCartTab> {
                           'Total ${_currencyFormat.format(model.totalCost)}',
                           style: Styles.productRowTotal,
                         ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        MaterialButton(
+                          height: 40.0,
+                          minWidth: 50.0,
+                          color: Color(0xFF1F4E99),
+                          textColor: Colors.white,
+                          child: new Text("Checkout"),
+                          onPressed: () {
+                            final model = Provider.of<AppStateModel>(context,
+                                listen: false);
+                            model.clearCart();
+                            AwesomeDialog(
+                              context: context,
+                              animType: AnimType.SCALE,
+                              headerAnimationLoop: false,
+                              dialogType: DialogType.SUCCES,
+                              showCloseIcon: true,
+                              title: 'Succes',
+                              desc: 'Transaksi Berhasil',
+                              btnOkOnPress: () {
+                                debugPrint('OnClcik');
+                              },
+                              btnOkIcon: Icons.check_circle,
+                              onDissmissCallback: (type) {
+                                debugPrint(
+                                    'Dialog Dissmiss from callback $type');
+                              },
+                            ).show();
+                          },
+                          splashColor: Color.fromARGB(255, 255, 255, 255),
+                        ),
                       ],
                     )
                   ],
@@ -83,7 +111,11 @@ class _ShoppingCartTabState extends State<ShoppingCartTab> {
         return CustomScrollView(
           slivers: <Widget>[
             const CupertinoSliverNavigationBar(
-              largeTitle: Text('Shopping Cart'),
+              backgroundColor: Color.fromARGB(255, 2, 27, 58),
+              largeTitle: Text(
+                'Shopping Cart',
+                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+              ),
             ),
             SliverSafeArea(
               top: false,

@@ -13,7 +13,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: product.color,
+      backgroundColor: appbars,
       appBar: buildAppBar(context),
       body: Body(product: product),
     );
@@ -21,12 +21,12 @@ class DetailsScreen extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: Color.fromARGB(250, 250, 250, 250),
+      backgroundColor: appbars,
       elevation: 0,
       leading: IconButton(
         icon: SvgPicture.asset(
           'assets/icons/back.svg',
-          color: Color.fromARGB(255, 0, 0, 0),
+          color: kTextLightColor,
         ),
         onPressed: () => Navigator.pop(context),
       ),
@@ -34,7 +34,7 @@ class DetailsScreen extends StatelessWidget {
         IconButton(
           icon: SvgPicture.asset(
             "assets/icons/search.svg",
-            color: Color.fromARGB(255, 0, 0, 0),
+            color: kTextLightColor,
           ),
           onPressed: () {},
         ),

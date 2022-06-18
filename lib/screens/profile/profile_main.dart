@@ -1,3 +1,4 @@
+import 'package:acul_komputer/constants.dart';
 import 'package:acul_komputer/screens/profile/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,7 +30,7 @@ class _MyProfileState extends State<MyProfile> {
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
               alignment: Alignment.centerLeft,
-              primary: Colors.black,
+              primary: kTextLightColor,
             ),
           )),
       home: ProfilePage(),

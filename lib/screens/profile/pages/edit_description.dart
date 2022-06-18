@@ -1,3 +1,4 @@
+import 'package:acul_komputer/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:acul_komputer/screens/profile/user/user_data.dart';
 import 'package:acul_komputer/screens/profile/widgets/appbar_widget.dart';
@@ -26,6 +27,7 @@ class _EditDescriptionFormPageState extends State<EditDescriptionFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: backColor,
         resizeToAvoidBottomInset: false,
         appBar: buildAppBar(context),
         body: Form(
@@ -36,10 +38,13 @@ class _EditDescriptionFormPageState extends State<EditDescriptionFormPage> {
               children: <Widget>[
                 SizedBox(
                   width: 350,
-                  height: 29,
+                  height: 30,
                   child: const Text(
-                    "Input Deskripsi",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    "Input Alamat",
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: kTextLightColor),
                   ),
                 ),
                 Padding(
@@ -58,12 +63,20 @@ class _EditDescriptionFormPageState extends State<EditDescriptionFormPage> {
                       },
                       controller: descriptionController,
                       textAlignVertical: TextAlignVertical.top,
-                      decoration: const InputDecoration(
-                          alignLabelWithHint: true,
-                          contentPadding: EdgeInsets.fromLTRB(10, 15, 10, 100),
-                          hintMaxLines: 3,
-                          hintText:
-                              'Nothing Last Forever We Can Change the Future.'),
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: kTextColor, width: 2.0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: splas, width: 2.0),
+                        ),
+                        alignLabelWithHint: true,
+                        contentPadding: EdgeInsets.fromLTRB(10, 15, 10, 100),
+                        hintMaxLines: 3,
+                        hintText:
+                            'Nothing Last Forever We Can Change the Future.',
+                        hintStyle: TextStyle(color: Colors.grey),
+                      ),
                     ),
                   ),
                 ),
@@ -74,7 +87,8 @@ class _EditDescriptionFormPageState extends State<EditDescriptionFormPage> {
                     child: SizedBox(
                       width: 350,
                       height: 50,
-                      child: ElevatedButton(
+                      child: MaterialButton(
+                        color: Color(0xFF1F4E99),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             updateUserValue(descriptionController.text);
@@ -83,7 +97,8 @@ class _EditDescriptionFormPageState extends State<EditDescriptionFormPage> {
                         },
                         child: const Text(
                           'Update',
-                          style: TextStyle(fontSize: 15),
+                          style:
+                              TextStyle(fontSize: 15, color: kTextLightColor),
                         ),
                       ),
                     ),

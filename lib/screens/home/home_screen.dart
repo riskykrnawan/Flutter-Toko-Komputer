@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 34, 36, 40), 
+      backgroundColor: backColor,
       appBar: buildAppBar(),
       body: const Body(),
       // bottomNavigationBar: MyMainScreen(),
@@ -25,14 +25,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   AppBar buildAppBar() {
     return AppBar(
-      backgroundColor: Color.fromARGB(255, 34, 36, 40),
+      backgroundColor: appbars,
       elevation: 0,
       title: const Text(
-        "Discover",
+        "Acul Komputer",
         style: TextStyle(
-            color: Color.fromARGB(255, 0, 0, 0),
-            fontSize: 24,
-            fontWeight: FontWeight.bold),
+            color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
       ),
       actions: <Widget>[
         IconButton(

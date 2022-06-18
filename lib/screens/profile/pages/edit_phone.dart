@@ -1,3 +1,4 @@
+import 'package:acul_komputer/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:acul_komputer/screens/profile/user/user_data.dart';
@@ -36,6 +37,7 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: backColor,
         resizeToAvoidBottomInset: false,
         appBar: buildAppBar(context),
         body: Form(
@@ -48,8 +50,10 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                     width: 320,
                     child: const Text(
                       "Input Nomor",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 22,
+                          color: kTextLightColor,
+                          fontWeight: FontWeight.bold),
                     )),
                 Padding(
                     padding: EdgeInsets.only(top: 40),
@@ -70,8 +74,16 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                           },
                           controller: phoneController,
                           decoration: const InputDecoration(
-                            labelText: 'Nomor Handphone Anda',
-                          ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: kTextColor, width: 2.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: splas, width: 2.0),
+                              ),
+                              labelText: 'Nomor Handphone Anda',
+                              labelStyle: TextStyle(color: kTextColor)),
                         ))),
                 Padding(
                     padding: EdgeInsets.only(top: 0),
@@ -80,9 +92,9 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                         child: SizedBox(
                           width: 320,
                           height: 50,
-                          child: ElevatedButton(
+                          child: MaterialButton(
+                            color: Color(0xFF1F4E99),
                             onPressed: () {
-                              // Validate returns true if the form is valid, or false otherwise.
                               if (_formKey.currentState!.validate() &&
                                   isNumeric(phoneController.text)) {
                                 updateUserValue(phoneController.text);
@@ -91,7 +103,8 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                             },
                             child: const Text(
                               'Update',
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(
+                                  fontSize: 15, color: kTextLightColor),
                             ),
                           ),
                         )))
