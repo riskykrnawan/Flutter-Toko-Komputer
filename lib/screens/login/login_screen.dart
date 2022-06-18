@@ -80,7 +80,8 @@ class _LoginState extends State<Login> {
           ),
 
           Form(
-            child: Column(children: [
+            child: Column(
+              children: [
               Center(
                 child: Text("LOGIN", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white.withOpacity(.5))),
               ),
