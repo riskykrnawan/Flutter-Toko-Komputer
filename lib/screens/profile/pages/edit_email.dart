@@ -1,3 +1,4 @@
+import 'package:acul_komputer/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:acul_komputer/screens/profile/user/user_data.dart';
 import 'package:acul_komputer/screens/profile/widgets/appbar_widget.dart';
@@ -30,6 +31,7 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: backColor,
         resizeToAvoidBottomInset: false,
         appBar: buildAppBar(context),
         body: Form(
@@ -42,8 +44,10 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                     width: 320,
                     child: const Text(
                       "Input Email",
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: kTextLightColor),
                       textAlign: TextAlign.left,
                     )),
                 Padding(
@@ -59,7 +63,16 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                             return null;
                           },
                           decoration: const InputDecoration(
-                              labelText: 'Alamat Email Anda'),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: kTextColor, width: 2.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: splas, width: 2.0),
+                              ),
+                              labelText: 'Alamat Email Anda',
+                              labelStyle: TextStyle(color: kTextColor)),
                           controller: emailController,
                         ))),
                 Padding(
@@ -69,7 +82,8 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                         child: SizedBox(
                           width: 320,
                           height: 50,
-                          child: ElevatedButton(
+                          child: MaterialButton(
+                            color: Color(0xFF1F4E99),
                             onPressed: () {
                               // Validate returns true if the form is valid, or false otherwise.
                               if (_formKey.currentState!.validate() &&
@@ -81,7 +95,8 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                             },
                             child: const Text(
                               'Update',
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(
+                                  fontSize: 15, color: kTextLightColor),
                             ),
                           ),
                         )))

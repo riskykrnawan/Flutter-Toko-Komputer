@@ -1,3 +1,4 @@
+import 'package:acul_komputer/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:acul_komputer/screens/profile/user/user_data.dart';
@@ -31,6 +32,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: backColor,
         resizeToAvoidBottomInset: false,
         appBar: buildAppBar(context),
         body: Form(
@@ -44,9 +46,9 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                   child: const Text(
                     "Input Nama",
                     style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: kTextLightColor),
                   )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -66,8 +68,17 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                               }
                               return null;
                             },
-                            decoration:
-                                InputDecoration(labelText: 'First Name'),
+                            decoration: const InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: kTextColor, width: 2.0),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: splas, width: 2.0),
+                                ),
+                                labelText: 'First Name',
+                                labelStyle: TextStyle(color: kTextColor)),
                             controller: firstNameController,
                           ))),
                   Padding(
@@ -84,8 +95,17 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                               }
                               return null;
                             },
-                            decoration:
-                                const InputDecoration(labelText: 'Last Name'),
+                            decoration: const InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: kTextColor, width: 2.0),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: splas, width: 2.0),
+                                ),
+                                labelText: 'Last Name',
+                                labelStyle: TextStyle(color: kTextColor)),
                             controller: secondNameController,
                           )))
                 ],
@@ -97,7 +117,8 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                       child: SizedBox(
                         width: 330,
                         height: 50,
-                        child: ElevatedButton(
+                        child: MaterialButton(
+                          color: Color(0xFF1F4E99),
                           onPressed: () {
                             // Validate returns true if the form is valid, or false otherwise.
                             if (_formKey.currentState!.validate() &&
@@ -111,7 +132,8 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                           },
                           child: const Text(
                             'Update',
-                            style: TextStyle(fontSize: 15),
+                            style:
+                                TextStyle(fontSize: 15, color: kTextLightColor),
                           ),
                         ),
                       )))

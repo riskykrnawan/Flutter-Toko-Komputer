@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:acul_komputer/constants.dart';
 import 'package:flutter/material.dart';
 import 'edit_description.dart';
 import 'edit_email.dart';
@@ -21,6 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final user = UserData.myUser;
 
     return Scaffold(
+      backgroundColor: backColor,
       body: Column(
         children: [
           AppBar(
@@ -28,33 +30,36 @@ class _ProfilePageState extends State<ProfilePage> {
             elevation: 0,
             toolbarHeight: 10,
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 10),
           Center(
-              child: Padding(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: Text(
-                    'Profile',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w700,
-                      color: Color.fromRGBO(64, 105, 225, 1),
-                    ),
-                  ))),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: Text(
+                'Profile',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                  color: kTextLightColor,
+                ),
+              ),
+            ),
+          ),
           InkWell(
-              onTap: () {
-                navigateSecondPage(EditImagePage());
-              },
-              child: DisplayImage(
-                imagePath: user.image,
-                onPressed: () {},
-              )),
+            onTap: () {
+              navigateSecondPage(EditImagePage());
+            },
+            child: DisplayImage(
+              imagePath: user.image,
+              onPressed: () {},
+            ),
+          ),
           buildUserInfoDisplay(user.name, 'Nama', EditNameFormPage()),
           buildUserInfoDisplay(user.phone, 'Phone', EditPhoneFormPage()),
           buildUserInfoDisplay(user.email, 'Email', EditEmailFormPage()),
           Expanded(
             child: buildAbout(user),
             flex: 4,
-          )
+          ),
         ],
       ),
     );
@@ -71,88 +76,105 @@ class _ProfilePageState extends State<ProfilePage> {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
-                  color: Colors.grey,
+                  color: kTextColor,
                 ),
               ),
               SizedBox(
                 height: 1,
               ),
               Container(
-                  width: 350,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                    color: Colors.grey,
-                    width: 1,
-                  ))),
-                  child: Row(children: [
+                width: 350,
+                height: 40,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: kTextColor,
+                      width: 1,
+                    ),
+                  ),
+                ),
+                child: Row(
+                  children: [
                     Expanded(
-                        child: TextButton(
-                            onPressed: () {
-                              navigateSecondPage(editPage);
-                            },
-                            child: Text(
-                              getValue,
-                              style: TextStyle(fontSize: 16, height: 1.4),
-                            ))),
+                      child: TextButton(
+                        onPressed: () {
+                          navigateSecondPage(editPage);
+                        },
+                        child: Text(
+                          getValue,
+                          style: TextStyle(fontSize: 16, height: 1.4),
+                        ),
+                      ),
+                    ),
                     Icon(
                       Icons.keyboard_arrow_right,
-                      color: Colors.grey,
+                      color: kTextColor,
                       size: 40.0,
-                    )
-                  ]))
+                    ),
+                  ],
+                ),
+              ),
             ],
           ));
 
   Widget buildAbout(User user) => Padding(
-      padding: EdgeInsets.only(bottom: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Alamat',
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey,
+        padding: EdgeInsets.only(bottom: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Alamat',
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: kTextColor,
+              ),
             ),
-          ),
-          const SizedBox(height: 1),
-          Container(
+            const SizedBox(height: 1),
+            Container(
               width: 350,
-              height: 200,
+              height: 80,
               decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                color: Colors.grey,
-                width: 1,
-              ))),
-              child: Row(children: [
-                Expanded(
+                border: Border(
+                  bottom: BorderSide(
+                    color: kTextColor,
+                    width: 1,
+                  ),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
                     child: TextButton(
-                        onPressed: () {
-                          navigateSecondPage(EditDescriptionFormPage());
-                        },
-                        child: Padding(
-                            padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                            child: Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  user.address,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    height: 1.4,
-                                  ),
-                                ))))),
-                Icon(
-                  Icons.keyboard_arrow_right,
-                  color: Colors.grey,
-                  size: 40.0,
-                )
-              ]))
-        ],
-      ));
+                      onPressed: () {
+                        navigateSecondPage(EditDescriptionFormPage());
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            user.address,
+                            style: TextStyle(
+                              fontSize: 16,
+                              height: 1.4,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Icon(
+                    Icons.keyboard_arrow_right,
+                    color: kTextColor,
+                    size: 40.0,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
 
   FutureOr onGoBack(dynamic value) {
     setState(() {});

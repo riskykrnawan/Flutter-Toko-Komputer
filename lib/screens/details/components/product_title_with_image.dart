@@ -28,7 +28,7 @@ class ProductTitleWithImage extends StatelessWidget {
             style: const TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 0, 0, 0),
+              color: kTextLightColor,
             ),
           ),
           const SizedBox(height: kDefaultPaddin),
@@ -40,14 +40,13 @@ class ProductTitleWithImage extends StatelessWidget {
                     const TextSpan(
                       text: "Price\n",
                       style: TextStyle(
-                        color: Colors.black,
+                        color: kTextLightColor,
                       ),
                     ),
                     TextSpan(
                       text: "Rp. ${product.price}",
                       style: Theme.of(context).textTheme.headline4?.copyWith(
-                          color: Color.fromARGB(255, 0, 0, 0),
-                          fontWeight: FontWeight.bold),
+                          color: kTextLightColor, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),

@@ -20,7 +20,12 @@ class ColorAndSize extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text("Color"),
+              const Text(
+                "Color",
+                style: TextStyle(
+                  color: kTextLightColor,
+                ),
+              ),
               Row(
                 children: const <Widget>[
                   ColorDot(
@@ -39,10 +44,16 @@ class ColorAndSize extends StatelessWidget {
             text: TextSpan(
               style: const TextStyle(color: kTextColor),
               children: [
-                const TextSpan(text: "Stock\n"),
+                const TextSpan(
+                  text: "Stock\n",
+                  style: TextStyle(
+                    color: kTextLightColor,
+                  ),
+                ),
                 TextSpan(
                     text: "${product.stock}",
                     style: const TextStyle(
+                      color: kTextLightColor,
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                     )),
