@@ -2,30 +2,29 @@ import 'package:acul_komputer/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:acul_komputer/screens/profile/user/UserData.dart';
 import 'package:acul_komputer/screens/profile/widgets/appbar_widget.dart';
-import 'package:email_validator/email_validator.dart';
 
-class EditEmailFormPage extends StatefulWidget {
-  const EditEmailFormPage({Key? key}) : super(key: key);
+class EditAddressFormPage extends StatefulWidget {
+  const EditAddressFormPage({Key? key}) : super(key: key);
 
   @override
-  EditEmailFormPageState createState() {
-    return EditEmailFormPageState();
+  EditAddressFormPageState createState() {
+    return EditAddressFormPageState();
   }
 }
 
-class EditEmailFormPageState extends State<EditEmailFormPage> {
+class EditAddressFormPageState extends State<EditAddressFormPage> {
   final _formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
+  final addressController = TextEditingController();
   var user = UserData.myUser;
 
   @override
   void dispose() {
-    emailController.dispose();
+    addressController.dispose();
     super.dispose();
   }
 
-  void updateUserValue(String email) {
-    user.email = email;
+  void updateUserValue(String address) {
+    user.address = address;
   }
 
   @override
@@ -40,10 +39,10 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                     width: 320,
-                    child: const Text(
-                      "Input Email",
+                    child: Text(
+                      "Input Alamat",
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -71,9 +70,9 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                                 borderSide:
                                     BorderSide(color: splas, width: 2.0),
                               ),
-                              labelText: 'Alamat Email Anda',
+                              labelText: 'Alamat Anda',
                               labelStyle: TextStyle(color: kTextColor)),
-                          controller: emailController,
+                          controller: addressController,
                         ))),
                 Padding(
                     padding: EdgeInsets.only(top: 0),
@@ -85,13 +84,8 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                           child: MaterialButton(
                             color: Color(0xFF1F4E99),
                             onPressed: () {
-                              // Validate returns true if the form is valid, or false otherwise.
-                              if (_formKey.currentState!.validate() &&
-                                  EmailValidator.validate(
-                                      emailController.text)) {
-                                updateUserValue(emailController.text);
+                                updateUserValue(addressController.text);
                                 Navigator.pop(context);
-                              }
                             },
                             child: const Text(
                               'Update',

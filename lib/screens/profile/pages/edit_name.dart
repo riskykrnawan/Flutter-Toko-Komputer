@@ -1,7 +1,7 @@
 import 'package:acul_komputer/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart';
-import 'package:acul_komputer/screens/profile/user/user_data.dart';
+import 'package:acul_komputer/screens/profile/user/UserData.dart';
 import 'package:acul_komputer/screens/profile/widgets/appbar_widget.dart';
 
 class EditNameFormPage extends StatefulWidget {

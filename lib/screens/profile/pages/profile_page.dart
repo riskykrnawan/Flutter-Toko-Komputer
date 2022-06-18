@@ -1,15 +1,20 @@
 import 'dart:async';
 
 import 'package:acul_komputer/constants.dart';
+import 'package:acul_komputer/screens/login/login_screen.dart';
+import 'package:acul_komputer/screens/profile/pages/edit_address.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'edit_description.dart';
 import 'edit_email.dart';
 import 'edit_image.dart';
 import 'edit_name.dart';
 import 'edit_phone.dart';
-import '../user/user.dart';
+import '../user/MyUser.dart';
 import '../widgets/display_image_widget.dart';
-import '../user/user_data.dart';
+import '../user/UserData.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -19,11 +24,16 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final user = UserData.myUser;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final myUser = UserData.myUser;
+    final tempUser = UserData.getDataUser(auth.currentUser!.uid);
+
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference users = firestore.collection("users");
 
     return Scaffold(
       backgroundColor: backColor,
-      body: Column(
+      body: ListView(
         children: [
           AppBar(
             backgroundColor: Colors.transparent,
@@ -44,28 +54,68 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
-          InkWell(
-            onTap: () {
-              navigateSecondPage(EditImagePage());
-            },
-            child: DisplayImage(
-              imagePath: user.image,
-              onPressed: () {},
+          SizedBox(
+            height: 200,
+            child: InkWell(
+              onTap: () {
+                navigateSecondPage(EditImagePage());
+              },
+              child: DisplayImage(
+                imagePath: myUser.image,
+                onPressed: () {},
+              ),
             ),
           ),
-          buildUserInfoDisplay(user.name, 'Nama', EditNameFormPage()),
-          buildUserInfoDisplay(user.phone, 'Phone', EditPhoneFormPage()),
-          buildUserInfoDisplay(user.email, 'Email', EditEmailFormPage()),
-          Expanded(
-            child: buildAbout(user),
-            flex: 4,
+          
+          StreamBuilder<DocumentSnapshot>(
+            stream: users.doc(auth.currentUser!.uid).snapshots(),
+            builder: (_, snapshot) {
+              return (snapshot.hasData)
+              ? 
+                Column(
+                  children: [
+                    SizedBox(
+                      child: buildUserInfoDisplay(snapshot.data!.get('fullname'), 'Nama', EditNameFormPage()),
+                    ),
+                    SizedBox(
+                      child: buildUserInfoDisplay(snapshot.data!.get('email'), 'Email', EditEmailFormPage()),
+                    ),
+                    SizedBox( 
+                      child: buildUserInfoDisplay(snapshot.data!.get('phoneNumber'), 'Nomor Telepon', EditPhoneFormPage()),
+                    ),
+                    SizedBox( 
+                      child: buildUserInfoDisplay(snapshot.data!.get('address'), 'Alamat', EditAddressFormPage(), height: 70, fontHeight: 2.3),
+                    ),
+                  ],
+                ) : Text("Loading...");
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
+            child: Container(
+              child: AnimatedButton(
+                borderRadius: BorderRadius.circular(4.0),
+                text: 'Log Out',
+                buttonTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.normal),
+                color: Color.fromARGB(255, 153, 31, 31),
+                pressEvent: () async {
+                  await FirebaseAuth.instance.signOut();
+                   Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+                    new MaterialPageRoute(
+                        builder: (context) =>
+                            new Login()),
+                    (route) => false);
+                },
+              ),
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget buildUserInfoDisplay(String getValue, String title, Widget editPage) =>
+  Widget buildUserInfoDisplay(String getValue, String title, Widget editPage, {double height = 40, double fontHeight = 1.4}) =>
+
       Padding(
           padding: EdgeInsets.only(bottom: 10),
           child: Column(
@@ -84,7 +134,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Container(
                 width: 350,
-                height: 40,
+                height: height,
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
@@ -102,7 +152,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         child: Text(
                           getValue,
-                          style: TextStyle(fontSize: 16, height: 1.4),
+                          style: TextStyle(fontSize: 16, height: fontHeight),
                         ),
                       ),
                     ),
@@ -117,7 +167,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ));
 
-  Widget buildAbout(User user) => Padding(
+  Widget buildAddress(String  address) => Padding(
         padding: EdgeInsets.only(bottom: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +204,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            user.address,
+                            address,
                             style: TextStyle(
                               fontSize: 16,
                               height: 1.4,

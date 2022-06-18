@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 // import '/models/Product.dart';
@@ -27,20 +28,25 @@ class AddToCart extends StatelessWidget {
             height: 50,
             width: 58,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: Colors.grey,
               ),
             ),
             child: IconButton(
               icon: SvgPicture.asset(
                 "assets/icons/add_to_cart.svg",
-                color: kTextLightColor,
+                color: Colors.grey,
               ),
               onPressed: () {
                 final model =
                     Provider.of<AppStateModel>(context, listen: false);
                 model.addProductToCart(product.id);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Barang berhasil dimasukkan ke Keranjang."),
+                  ),
+                );
               },
             ),
           ),
@@ -50,13 +56,29 @@ class AddToCart extends StatelessWidget {
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18)),
-                      // primary: product.color,
+                          borderRadius: BorderRadius.circular(10)),
+                      primary: Color(0xFF1F4E99),
                     ),
                     onPressed: () {
                       final model =
                           Provider.of<AppStateModel>(context, listen: false);
                       model.addProductToCart(product.id);
+                      AwesomeDialog(
+                        context: context,
+                        animType: AnimType.SCALE,
+                        headerAnimationLoop: false,
+                        dialogType: DialogType.SUCCES,
+                        showCloseIcon: true,                        
+                        desc: 'Barang telah akan dikirmkan secepatnya',
+                        btnOkOnPress: () {
+                          debugPrint('OnClcik');
+                        },
+                        btnOkIcon: Icons.check_circle,
+                        onDissmissCallback: (type) {
+                          debugPrint(
+                              'Dialog Dissmiss from callback $type');
+                        },
+                      ).show();
                     },
                     child: Text(
                       "Buy Now".toUpperCase(),

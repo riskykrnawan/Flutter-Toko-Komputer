@@ -78,7 +78,7 @@ class _ShoppingCartTabState extends State<ShoppingCartTab> {
                               headerAnimationLoop: false,
                               dialogType: DialogType.SUCCES,
                               showCloseIcon: true,
-                              title: 'Succes',
+                              title: 'Berhasil!',
                               desc: 'Transaksi Berhasil',
                               btnOkOnPress: () {
                                 debugPrint('OnClcik');
@@ -111,10 +111,10 @@ class _ShoppingCartTabState extends State<ShoppingCartTab> {
         return CustomScrollView(
           slivers: <Widget>[
             const CupertinoSliverNavigationBar(
-              backgroundColor: Color.fromARGB(255, 2, 27, 58),
+              backgroundColor: Color(0xFF2E394C),
               largeTitle: Text(
                 'Shopping Cart',
-                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                style: TextStyle(color: Colors.white),
               ),
             ),
             SliverSafeArea(

@@ -28,9 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: appbars,
       elevation: 0,
       title: const Text(
-        "Acul Komputer",
+        "ACUL KOMPUTER",
         style: TextStyle(
-            color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+            color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
       ),
       actions: <Widget>[
         IconButton(

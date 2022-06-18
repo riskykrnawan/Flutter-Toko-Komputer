@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:acul_komputer/getx_controller/login_controller.dart';
 // import 'package:acul_komputer/getx_controller/register_controller.dart';
 
@@ -54,6 +55,8 @@ class RegisterState extends State<Register> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference users = firestore.collection('users');
 
+    final FirebaseAuth auth = FirebaseAuth.instance;
+
     void _register() async {
       try {
         final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -99,127 +102,134 @@ class RegisterState extends State<Register> {
       backgroundColor: Color(0xFF2E394C),
       body: Center(
         child: Padding(
-      padding: EdgeInsets.all(20),
-      child: Column(
-        children: [
-          SizedBox(height: 20),
-          Center(
-            child: Text("REGISTER", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white.withOpacity(.5))),
-          ),
-          SizedBox(height: 40),
-          Flexible(
-            child: TextField(
-              style: TextStyle(color: Colors.white),
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
-                filled: true,
-                border: InputBorder.none,
-                fillColor: Color.fromARGB(255, 55, 77, 116),
-                labelText: "Email",
-              ),
-              controller: _emailController,
-              ),
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            Center(
+              child: Text("REGISTER", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white.withOpacity(.5))),
             ),
-          SizedBox(height: 20),
-          Flexible(
-            child: TextField(
-              style: TextStyle(color: Colors.white),
-              obscureText: true,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
-                filled: true,
-                border: InputBorder.none,
-                fillColor: Color.fromARGB(255, 55, 77, 116),
-                labelText: "Password",
-              ),
-              controller: _passwordController,
-              ),
+            SizedBox(height: 30),
+            Row(
+              children: [
+                Flexible(
+                  child: TextField(
+                    style: TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                      filled: true,
+                      border: InputBorder.none,
+                      fillColor: Color.fromARGB(255, 55, 77, 116),
+                      labelText: "Email",
+                    ),
+                    controller: _emailController,
+                    ),
+                  ),
+                SizedBox(width: 5),
+                Flexible(
+                  child: TextField(
+                    style: TextStyle(color: Colors.white),
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                      filled: true,
+                      border: InputBorder.none,
+                      fillColor: Color.fromARGB(255, 55, 77, 116),
+                      labelText: "Password",
+                    ),
+                    controller: _passwordController,
+                    ),
+                  ),
+              ],
             ),
-          SizedBox(height: 20),
-          Flexible(
-            child: TextField(
-              style: TextStyle(color: Colors.white),
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
-                filled: true,
-                border: InputBorder.none,
-                fillColor: Color.fromARGB(255, 55, 77, 116),
-                labelText: "Nama",
-              ),
-              controller: _fullnameController,
-              ),
-            ),
-          SizedBox(height: 20),
-          Flexible(
-            child: TextField(
-              style: TextStyle(color: Colors.white),
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
-                filled: true,
-                border: InputBorder.none,
-                fillColor: Color.fromARGB(255, 55, 77, 116),
-                labelText: "Nomor Telpon",
-              ),
-              controller: _phoneNumberController,
-              ),
-            ),
-          SizedBox(height: 20),
-          Flexible(
-            child: TextField(
-              style: TextStyle(color: Colors.white),
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
-                filled: true,
-                border: InputBorder.none,
-                fillColor: Color.fromARGB(255, 55, 77, 116),
-                labelText: "Alamat",
-              ),
-              controller: _addressController,
-              ),
-            ),
-          SizedBox(height: 20),
-          Container(
-            child: AnimatedButton(
-              borderRadius: BorderRadius.circular(4.0),
-              text: 'Register',
-              buttonTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.normal),
-              color: Color(0xFF1F4E99),
-              pressEvent: () async {
-                _register();
-              },
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              TextButton(
-                child: const Text(
-                  'Sudah memiliki Akun?',
-                  style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.normal)
+            SizedBox(height: 20),
+            Flexible(
+              child: TextField(
+                style: TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                  filled: true,
+                  border: InputBorder.none,
+                  fillColor: Color.fromARGB(255, 55, 77, 116),
+                  labelText: "Nama",
                 ),
-                onPressed: () {
-                  users.add(
-                    {
-                      'fullname': _fullnameController.text,
-                      'email': _emailController.text,
-                      'phoneNumber': _phoneNumberController.text,
-                      'address': _addressController.text
-                    }
-                  );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) {
-                      return Login();
-                    }),
-                  );
+                controller: _fullnameController,
+                ),
+              ),
+            SizedBox(height: 20),
+            Flexible(
+              child: TextField(
+                style: TextStyle(color: Colors.white),
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                  filled: true,
+                  border: InputBorder.none,
+                  fillColor: Color.fromARGB(255, 55, 77, 116),
+                  labelText: "Nomor Telpon (+62)",
+                ),
+                controller: _phoneNumberController,
+                ),
+              ),
+            SizedBox(height: 20),
+            Flexible(
+              child: TextField(
+                style: TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                  filled: true,
+                  border: InputBorder.none,
+                  fillColor: Color.fromARGB(255, 55, 77, 116),
+                  labelText: "Alamat",
+                ),
+                controller: _addressController,
+                ),
+              ),
+            SizedBox(height: 20),
+            Container(
+              child: AnimatedButton(
+                borderRadius: BorderRadius.circular(4.0),
+                text: 'Register',
+                buttonTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.normal),
+                color: Color(0xFF1F4E99),
+                pressEvent: () async {
+                  _register();
                 },
-              )
-            ],
+              ),
             ),
-        ],
-      ),
-    ), 
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                TextButton(
+                  child: const Text(
+                    'Sudah memiliki Akun?',
+                    style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.normal)
+                  ),
+                
+                  onPressed: () {
+                    users 
+                      .doc(auth.currentUser!.uid) // <-- Document ID
+                      .set({
+                        'fullname': _fullnameController.text,
+                        'email': _emailController.text,
+                        'phoneNumber': _phoneNumberController.text,
+                        'address': _addressController.text
+                      }) // <--  data
+                      .then((_) => print('Added'))
+                      .catchError((error) => print('Add failed: $error'));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) {
+                        return Login();
+                      }),
+                    );
+                  },
+                )
+              ],
+              ),
+          ],
+        ),
+      ), 
     ),
     );
   }

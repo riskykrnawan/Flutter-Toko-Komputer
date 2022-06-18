@@ -1,6 +1,6 @@
 import 'package:acul_komputer/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:acul_komputer/screens/profile/user/user_data.dart';
+import 'package:acul_komputer/screens/profile/user/UserData.dart';
 import 'package:acul_komputer/screens/profile/widgets/appbar_widget.dart';
 
 class EditDescriptionFormPage extends StatefulWidget {
@@ -63,7 +63,7 @@ class _EditDescriptionFormPageState extends State<EditDescriptionFormPage> {
                       },
                       controller: descriptionController,
                       textAlignVertical: TextAlignVertical.top,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: kTextColor, width: 2.0),
                         ),

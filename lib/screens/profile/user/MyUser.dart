@@ -1,4 +1,4 @@
-class User {
+class MyUser {
   String image;
   String name;
   String email;
@@ -6,7 +6,7 @@ class User {
   String address;
 
   // Constructor
-  User({
+  MyUser({
     required this.image,
     required this.name,
     required this.email,
@@ -14,14 +14,14 @@ class User {
     required this.address,
   });
 
-  User copy({
+  MyUser copy({
     String? imagePath,
     String? name,
     String? phone,
     String? email,
     String? about,
   }) =>
-      User(
+      MyUser(
         image: imagePath ?? this.image,
         name: name ?? this.name,
         email: email ?? this.email,
@@ -29,7 +29,7 @@ class User {
         address: about ?? this.address,
       );
 
-  static User fromJson(Map<String, dynamic> json) => User(
+  static MyUser fromJson(Map<String, dynamic> json) => MyUser(
         image: json['imagePath'],
         name: json['name'],
         email: json['email'],
