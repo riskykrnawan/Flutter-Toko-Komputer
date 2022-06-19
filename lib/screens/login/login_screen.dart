@@ -1,3 +1,4 @@
+import 'package:acul_komputer/loading_screen.dart';
 import 'package:acul_komputer/screens/main/main_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,10 +8,8 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:acul_komputer/getx_controller/login_controller.dart';
 import 'package:acul_komputer/screens/register/register_screen.dart';
 
-
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
-  
 
   @override
   State<Login> createState() => _LoginState();
@@ -27,15 +26,15 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     void _login() async {
       try {
-        final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailController.text,
-          password: _passwordController.text
-        );
+        final credential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+                email: _emailController.text,
+                password: _passwordController.text);
         setState(() {
           _success = true;
         });
-        Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => MyMainScreen()));
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const LoadingScreen()));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -67,35 +66,39 @@ class _LoginState extends State<Login> {
     }
 
     return Scaffold(
-      backgroundColor: Color(0xFF2E394C), 
+      backgroundColor: Color(0xFF2E394C),
       body: ListView(
         children: [
           SizedBox(height: 50),
           Center(
             child: Image.asset(
               "assets/images/logo.png",
-              width: MediaQuery.of(context).size.width*.4,
-              height: MediaQuery.of(context).size.width*.5,
+              width: MediaQuery.of(context).size.width * .4,
+              height: MediaQuery.of(context).size.width * .5,
             ),
           ),
-
           Form(
-            child: Column(
-              children: [
+              child: Column(
+            children: [
               Center(
-                child: Text("LOGIN", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white.withOpacity(.5))),
+                child: Text("LOGIN",
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white.withOpacity(.5))),
               ),
-              
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 16),
                     child: TextFormField(
                       style: TextStyle(color: Colors.white),
                       controller: _emailController,
                       decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 7.0, horizontal: 10.0),
                         filled: true,
                         border: InputBorder.none,
                         fillColor: Color.fromARGB(255, 55, 77, 116),
@@ -105,18 +108,19 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-              
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 16),
                     child: TextFormField(
                       style: TextStyle(color: Colors.white),
                       obscureText: true,
                       controller: _passwordController,
                       decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 7.0, horizontal: 10.0),
                         filled: true,
                         border: InputBorder.none,
                         fillColor: Color.fromARGB(255, 55, 77, 116),
@@ -127,16 +131,15 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ],
-            )
-          ),
-
+          )),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
             child: Container(
               child: AnimatedButton(
                 borderRadius: BorderRadius.circular(4.0),
                 text: 'Login',
-                buttonTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.normal),
+                buttonTextStyle: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.normal),
                 color: Color(0xFF1F4E99),
                 pressEvent: () async {
                   _login();
@@ -148,10 +151,10 @@ class _LoginState extends State<Login> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextButton(
-                child: const Text(
-                  'Belum memiliki Akun?',
-                  style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.normal)
-                ),
+                child: const Text('Belum memiliki Akun?',
+                    style: TextStyle(
+                        color: Colors.blueAccent,
+                        fontWeight: FontWeight.normal)),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -162,11 +165,10 @@ class _LoginState extends State<Login> {
                 },
               )
             ],
-            ),
+          ),
         ],
       ),
     );
-
   }
 }
 

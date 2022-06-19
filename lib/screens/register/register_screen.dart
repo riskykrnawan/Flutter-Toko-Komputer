@@ -20,15 +20,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 //   Register({Key? key}) : super(key: key);
 
 //   final GetxRegisterController tc = Get.put(GetxRegisterController());
-  // Widget form(BuildContext context) => 
+// Widget form(BuildContext context) =>
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       backgroundColor: Color(0xFF2E394C), 
+//       backgroundColor: Color(0xFF2E394C),
 //       resizeToAvoidBottomInset: false,
 //       appBar: buildAppBar(context),
 //       body: Center(
-//         child: 
+//         child:
 //             form(context),
 //         ),
 //     );
@@ -38,9 +38,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 class Register extends StatefulWidget {
   final String title = 'Registration';
   @override
-  State<StatefulWidget> createState() => 
-      RegisterState();
+  State<StatefulWidget> createState() => RegisterState();
 }
+
 class RegisterState extends State<Register> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
@@ -51,7 +51,7 @@ class RegisterState extends State<Register> {
   late bool _success;
   String? _userEmail;
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference users = firestore.collection('users');
 
@@ -59,7 +59,8 @@ class RegisterState extends State<Register> {
 
     Future<String> _register() async {
       try {
-        final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text,
           password: _passwordController.text,
         );
@@ -94,158 +95,172 @@ class RegisterState extends State<Register> {
       } catch (e) {
         print(e);
         throw 'Input yang dimasukkan tidak benar';
-      } 
+      }
     }
 
-      
-    
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: buildAppBar(context),
       backgroundColor: Color(0xFF2E394C),
       body: Center(
         child: Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            SizedBox(height: 10),
-            Center(
-              child: Text("REGISTER", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white.withOpacity(.5))),
-            ),
-            SizedBox(height: 30),
-            Row(
-              children: [
-                Flexible(
-                  child: TextField(
-                    style: TextStyle(color: Colors.white),
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
-                      filled: true,
-                      border: InputBorder.none,
-                      fillColor: Color.fromARGB(255, 55, 77, 116),
-                      labelText: "Email",
-                    ),
-                    controller: _emailController,
-                    ),
-                  ),
-                SizedBox(width: 5),
-                Flexible(
-                  child: TextField(
-                    style: TextStyle(color: Colors.white),
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
-                      filled: true,
-                      border: InputBorder.none,
-                      fillColor: Color.fromARGB(255, 55, 77, 116),
-                      labelText: "Password",
-                    ),
-                    controller: _passwordController,
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              SizedBox(height: 10),
+              Center(
+                child: Text("REGISTER",
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white.withOpacity(.5))),
+              ),
+              SizedBox(height: 30),
+              Row(
+                children: [
+                  Flexible(
+                    child: TextField(
+                      style: TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 7.0, horizontal: 10.0),
+                        filled: true,
+                        border: InputBorder.none,
+                        fillColor: Color.fromARGB(255, 55, 77, 116),
+                        labelText: "Email",
+                      ),
+                      controller: _emailController,
                     ),
                   ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Flexible(
-              child: TextField(
-                style: TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
-                  filled: true,
-                  border: InputBorder.none,
-                  fillColor: Color.fromARGB(255, 55, 77, 116),
-                  labelText: "Nama",
-                ),
-                controller: _fullnameController,
-                ),
-              ),
-            SizedBox(height: 20),
-            Flexible(
-              child: TextField(
-                style: TextStyle(color: Colors.white),
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
-                  filled: true,
-                  border: InputBorder.none,
-                  fillColor: Color.fromARGB(255, 55, 77, 116),
-                  labelText: "Nomor Telpon (+62)",
-                ),
-                controller: _phoneNumberController,
-                ),
-              ),
-            SizedBox(height: 20),
-            Flexible(
-              child: TextField(
-                style: TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
-                  filled: true,
-                  border: InputBorder.none,
-                  fillColor: Color.fromARGB(255, 55, 77, 116),
-                  labelText: "Alamat",
-                ),
-                controller: _addressController,
-                ),
-              ),
-            SizedBox(height: 20),
-            Container(
-              child: AnimatedButton(
-                borderRadius: BorderRadius.circular(4.0),
-                text: 'Register',
-                buttonTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.normal),
-                color: Color(0xFF1F4E99),
-                pressEvent: () async {
-                  await _register().then((value) {
-                    users 
-                    .doc(value) // <-- Document ID
-                    .set({
-                      'fullname': _fullnameController.text,
-                      'email': _emailController.text,
-                      'phoneNumber': _phoneNumberController.text,
-                      'address': _addressController.text
-                    }) // <--  data
-                    .then((_) => print('Added'))
-                    .catchError((error) => print('Add failed: $error'));
-                  });
-                },
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                TextButton(
-                  child: const Text(
-                    'Sudah memiliki Akun?',
-                    style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.normal)
+                  SizedBox(width: 5),
+                  Flexible(
+                    child: TextField(
+                      style: TextStyle(color: Colors.white),
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 7.0, horizontal: 10.0),
+                        filled: true,
+                        border: InputBorder.none,
+                        fillColor: Color.fromARGB(255, 55, 77, 116),
+                        labelText: "Password",
+                      ),
+                      controller: _passwordController,
+                    ),
                   ),
-                
-                  onPressed: () async {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) {
-                        return Login();
-                      }),
-                    );
+                ],
+              ),
+              SizedBox(height: 20),
+              Flexible(
+                child: TextField(
+                  style: TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                    filled: true,
+                    border: InputBorder.none,
+                    fillColor: Color.fromARGB(255, 55, 77, 116),
+                    labelText: "Nama",
+                  ),
+                  controller: _fullnameController,
+                ),
+              ),
+              SizedBox(height: 20),
+              Flexible(
+                child: TextField(
+                  style: TextStyle(color: Colors.white),
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                    filled: true,
+                    border: InputBorder.none,
+                    fillColor: Color.fromARGB(255, 55, 77, 116),
+                    labelText: "Nomor Telpon (+62)",
+                  ),
+                  controller: _phoneNumberController,
+                ),
+              ),
+              SizedBox(height: 20),
+              Flexible(
+                child: TextField(
+                  style: TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
+                    filled: true,
+                    border: InputBorder.none,
+                    fillColor: Color.fromARGB(255, 55, 77, 116),
+                    labelText: "Alamat",
+                  ),
+                  controller: _addressController,
+                ),
+              ),
+              SizedBox(height: 20),
+              Container(
+                child: AnimatedButton(
+                  borderRadius: BorderRadius.circular(4.0),
+                  text: 'Register',
+                  buttonTextStyle: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.normal),
+                  color: Color(0xFF1F4E99),
+                  pressEvent: () async {
+                    await _register().then((value) {
+                      users
+                          .doc(value) // <-- Document ID
+                          .set({
+                            'fullname': _fullnameController.text,
+                            'email': _emailController.text,
+                            'phoneNumber': _phoneNumberController.text,
+                            'address': _addressController.text
+                          }) // <--  data
+                          .then((_) => print('Added'))
+                          .catchError((error) => print('Add failed: $error'));
+                    });
+                    AwesomeDialog(
+                      context: context,
+                      animType: AnimType.SCALE,
+                      headerAnimationLoop: false,
+                      dialogType: DialogType.SUCCES,
+                      title: 'Registrasi Berhasil',
+                      desc: 'Silahkan Login',
+                      btnOkOnPress: () {
+                        debugPrint('OnClcik');
+                      },
+                      btnOkIcon: Icons.check_circle,
+                      onDissmissCallback: (type) {
+                        debugPrint('Dialog Dissmiss from callback $type');
+                      },
+                    ).show();
                   },
-                )
-              ],
-            ),
-          ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  TextButton(
+                    child: const Text('Sudah memiliki Akun?',
+                        style: TextStyle(
+                            color: Colors.blueAccent,
+                            fontWeight: FontWeight.normal)),
+                    onPressed: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) {
+                          return Login();
+                        }),
+                      );
+                    },
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
-      ), 
-    ),
+      ),
     );
   }
 }
-
-
-
-
-
-
-
-
 
 // class Register extends StatelessWidget {
 //   Register({Key? key}) : super(key: key);
@@ -254,7 +269,7 @@ class RegisterState extends State<Register> {
 //   final GetxRegisterController getFormController = Get.find();
 
 //   @override
-//   Widget build(BuildContext context) { 
+//   Widget build(BuildContext context) {
 //     FirebaseFirestore firestore = FirebaseFirestore.instance;
 //     CollectionReference users = firestore.collection('users');
 
@@ -315,7 +330,7 @@ class RegisterState extends State<Register> {
 //                   ),
 //                 ],
 //               ),
-              
+
 //               Column(
 //                 crossAxisAlignment: CrossAxisAlignment.start,
 //                 children: <Widget>[
@@ -349,7 +364,6 @@ class RegisterState extends State<Register> {
 //                 ],
 //               ),
 
-              
 //               Column(
 //                 crossAxisAlignment: CrossAxisAlignment.start,
 //                 children: <Widget>[
