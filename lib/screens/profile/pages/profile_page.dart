@@ -142,6 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             desc: 'Akun berhasil dihapus',
                             btnOkOnPress: () async {
                               try {
+                                users.doc(auth.currentUser!.uid).delete();
                                 await FirebaseAuth.instance.currentUser!.delete();
                                 Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                                   new MaterialPageRoute(

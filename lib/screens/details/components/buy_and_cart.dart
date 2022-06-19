@@ -44,7 +44,7 @@ class AddToCart extends StatelessWidget {
                 model.addProductToCart(product.id);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text("Barang berhasil dimasukkan ke Keranjang."),
+                    content: Text("Barang dimasukkan ke Keranjang."),
                   ),
                 );
               },
@@ -68,7 +68,6 @@ class AddToCart extends StatelessWidget {
                         animType: AnimType.SCALE,
                         headerAnimationLoop: false,
                         dialogType: DialogType.SUCCES,
-                        showCloseIcon: true,     
                         title: 'Transaksi Berhasil',                   
                         desc: 'Barang telah akan dikirmkan secepatnya',
                         btnOkOnPress: () {
