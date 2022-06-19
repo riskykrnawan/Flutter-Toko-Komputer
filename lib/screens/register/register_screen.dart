@@ -57,12 +57,13 @@ class RegisterState extends State<Register> {
 
     final FirebaseAuth auth = FirebaseAuth.instance;
 
-    void _register() async {
+    Future<String> _register() async {
       try {
         final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text,
           password: _passwordController.text,
         );
+        return auth.currentUser!.uid;
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -89,8 +90,10 @@ class RegisterState extends State<Register> {
             ),
           );
         }
+        throw 'Input yang dimasukkan tidak benar';
       } catch (e) {
         print(e);
+        throw 'Input yang dimasukkan tidak benar';
       } 
     }
 
@@ -193,7 +196,18 @@ class RegisterState extends State<Register> {
                 buttonTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.normal),
                 color: Color(0xFF1F4E99),
                 pressEvent: () async {
-                  _register();
+                  await _register().then((value) {
+                    users 
+                    .doc(value) // <-- Document ID
+                    .set({
+                      'fullname': _fullnameController.text,
+                      'email': _emailController.text,
+                      'phoneNumber': _phoneNumberController.text,
+                      'address': _addressController.text
+                    }) // <--  data
+                    .then((_) => print('Added'))
+                    .catchError((error) => print('Add failed: $error'));
+                  });
                 },
               ),
             ),
@@ -206,17 +220,7 @@ class RegisterState extends State<Register> {
                     style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.normal)
                   ),
                 
-                  onPressed: () {
-                    users 
-                      .doc(auth.currentUser!.uid) // <-- Document ID
-                      .set({
-                        'fullname': _fullnameController.text,
-                        'email': _emailController.text,
-                        'phoneNumber': _phoneNumberController.text,
-                        'address': _addressController.text
-                      }) // <--  data
-                      .then((_) => print('Added'))
-                      .catchError((error) => print('Add failed: $error'));
+                  onPressed: () async {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (_) {
@@ -226,7 +230,7 @@ class RegisterState extends State<Register> {
                   },
                 )
               ],
-              ),
+            ),
           ],
         ),
       ), 

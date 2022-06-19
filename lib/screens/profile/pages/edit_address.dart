@@ -1,4 +1,6 @@
 import 'package:acul_komputer/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:acul_komputer/screens/profile/user/UserData.dart';
 import 'package:acul_komputer/screens/profile/widgets/appbar_widget.dart';
@@ -16,6 +18,9 @@ class EditAddressFormPageState extends State<EditAddressFormPage> {
   final _formKey = GlobalKey<FormState>();
   final addressController = TextEditingController();
   var user = UserData.myUser;
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  CollectionReference users = FirebaseFirestore.instance.collection("users");
 
   @override
   void dispose() {
@@ -55,6 +60,7 @@ class EditAddressFormPageState extends State<EditAddressFormPage> {
                         height: 100,
                         width: 320,
                         child: TextFormField(
+                          style: TextStyle(color: Colors.white),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Kolom Kosong.';
@@ -85,7 +91,15 @@ class EditAddressFormPageState extends State<EditAddressFormPage> {
                             color: Color(0xFF1F4E99),
                             onPressed: () {
                                 updateUserValue(addressController.text);
+                                users.doc(auth.currentUser!.uid).update(
+                                  { 'address': addressController.text }
+                                );
                                 Navigator.pop(context);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Alamat Berhasil diubah."),
+                                  ),
+                                );
                             },
                             child: const Text(
                               'Update',

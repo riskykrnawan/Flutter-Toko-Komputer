@@ -1,4 +1,6 @@
 import 'package:acul_komputer/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:acul_komputer/screens/profile/user/UserData.dart';
@@ -18,6 +20,9 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
   final phoneController = TextEditingController();
   var user = UserData.myUser;
 
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  CollectionReference users = FirebaseFirestore.instance.collection("users");
+
   @override
   void dispose() {
     phoneController.dispose();
@@ -25,12 +30,7 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
   }
 
   void updateUserValue(String phone) {
-    String formattedPhoneNumber = "(" +
-        phone.substring(0, 3) +
-        ") " +
-        phone.substring(3, 6) +
-        "-" +
-        phone.substring(6, phone.length);
+    String formattedPhoneNumber = "(${phone.substring(0, 3)}) ${phone.substring(3, 6)}-${phone.substring(6, phone.length)}";
     user.phone = formattedPhoneNumber;
   }
 
@@ -61,6 +61,7 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                         height: 100,
                         width: 320,
                         child: TextFormField(
+                          style: TextStyle(color: Colors.white),
                           // Handles Form Validation
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -98,7 +99,15 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                               if (_formKey.currentState!.validate() &&
                                   isNumeric(phoneController.text)) {
                                 updateUserValue(phoneController.text);
+                                users.doc(auth.currentUser!.uid).update(
+                                  { 'phoneNumber': phoneController.text }
+                                );
                                 Navigator.pop(context);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Nomor Telepon Berhasil diubah."),
+                                  ),
+                                );
                               }
                             },
                             child: const Text(

@@ -68,7 +68,8 @@ class AddToCart extends StatelessWidget {
                         animType: AnimType.SCALE,
                         headerAnimationLoop: false,
                         dialogType: DialogType.SUCCES,
-                        showCloseIcon: true,                        
+                        showCloseIcon: true,     
+                        title: 'Transaksi Berhasil',                   
                         desc: 'Barang telah akan dikirmkan secepatnya',
                         btnOkOnPress: () {
                           debugPrint('OnClcik');

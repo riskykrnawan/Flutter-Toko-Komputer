@@ -1,4 +1,6 @@
 import 'package:acul_komputer/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:acul_komputer/screens/profile/user/UserData.dart';
 import 'package:acul_komputer/screens/profile/widgets/appbar_widget.dart';
@@ -17,6 +19,9 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   var user = UserData.myUser;
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  CollectionReference users = FirebaseFirestore.instance.collection("users");
 
   @override
   void dispose() {
@@ -56,6 +61,7 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                         height: 100,
                         width: 320,
                         child: TextFormField(
+                          style: TextStyle(color: Colors.white),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Kolom Kosong.';
@@ -90,6 +96,9 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                                   EmailValidator.validate(
                                       emailController.text)) {
                                 updateUserValue(emailController.text);
+                                users.doc(auth.currentUser!.uid).update(
+                                  { 'email': emailController.text }
+                                );
                                 Navigator.pop(context);
                               }
                             },

@@ -7,6 +7,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'edit_description.dart';
 import 'edit_email.dart';
 import 'edit_image.dart';
@@ -41,6 +42,29 @@ class _ProfilePageState extends State<ProfilePage> {
             toolbarHeight: 10,
           ),
           SizedBox(height: 10),
+          Align(
+            alignment: Alignment.topRight,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+                    new MaterialPageRoute(
+                        builder: (context) =>
+                            new Login()),
+                    (route) => false);
+                  },
+                  icon: Icon(Icons.logout_rounded, color: Colors.red,),
+                  label: Text("Log Out", style: TextStyle(color: Colors.red, fontWeight: FontWeight.normal, fontSize: 15),),
+                  style: ElevatedButton.styleFrom(
+                    textStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.normal, fontSize: 15),
+                  ),
+                ),
+              ],
+            ),
+          ),
           Center(
             child: Padding(
               padding: EdgeInsets.only(bottom: 20),
@@ -54,6 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
+          
           SizedBox(
             height: 200,
             child: InkWell(
@@ -78,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: buildUserInfoDisplay(snapshot.data!.get('fullname'), 'Nama', EditNameFormPage()),
                     ),
                     SizedBox(
-                      child: buildUserInfoDisplay(snapshot.data!.get('email'), 'Email', EditEmailFormPage()),
+                      child: buildUserInfoDisplayWithoutEditting(snapshot.data!.get('email'), 'Email'),
                     ),
                     SizedBox( 
                       child: buildUserInfoDisplay(snapshot.data!.get('phoneNumber'), 'Nomor Telepon', EditPhoneFormPage()),
@@ -93,20 +118,48 @@ class _ProfilePageState extends State<ProfilePage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
             child: Container(
-              child: AnimatedButton(
-                borderRadius: BorderRadius.circular(4.0),
-                text: 'Log Out',
-                buttonTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.normal),
-                color: Color.fromARGB(255, 153, 31, 31),
-                pressEvent: () async {
-                  await FirebaseAuth.instance.signOut();
-                   Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-                    new MaterialPageRoute(
-                        builder: (context) =>
-                            new Login()),
-                    (route) => false);
-                },
-              ),
+              child: Column(
+                children: [
+                  AnimatedButton(
+                    borderRadius: BorderRadius.circular(4.0),
+                    text: 'Hapus Akun?',
+                    buttonTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.normal),
+                    color: Color.fromARGB(255, 153, 31, 31),
+                    pressEvent: () {                      
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.QUESTION,
+                        animType: AnimType.SCALE,
+                        title: 'Apa anda yakin?',
+                        desc: 'Akun yang telah dihapus tidak dapat digunakan kembali!',
+                        btnCancelOnPress: () {},
+                        btnOkOnPress: () {
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.SUCCES,
+                            animType: AnimType.BOTTOMSLIDE,
+                            title: 'Akun terhapus',
+                            desc: 'Akun berhasil dihapus',
+                            btnOkOnPress: () async {
+                              try {
+                                await FirebaseAuth.instance.currentUser!.delete();
+                                Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+                                  new MaterialPageRoute(
+                                      builder: (context) =>
+                                          new Login()),
+                                  (route) => false);
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'requires-recent-login') {
+                                  print('The user must reauthenticate before this operation can be executed.');
+                                }
+                              }
+                            },
+                          ).show();
+                        },
+                      ).show();
+                    },
+                  ),
+              ],)
             ),
           ),
         ],
@@ -115,7 +168,6 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget buildUserInfoDisplay(String getValue, String title, Widget editPage, {double height = 40, double fontHeight = 1.4}) =>
-
       Padding(
           padding: EdgeInsets.only(bottom: 10),
           child: Column(
@@ -153,6 +205,62 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Text(
                           getValue,
                           style: TextStyle(fontSize: 16, height: fontHeight),
+                        ),
+                      ),
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_right,
+                      color: kTextColor,
+                      size: 40.0,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ));
+  
+  Widget buildUserInfoDisplayWithoutEditting(String getValue, String title, {double height = 40, double fontHeight = 1.4}) =>
+      Padding(
+          padding: EdgeInsets.only(bottom: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: kTextColor,
+                ),
+              ),
+              SizedBox(
+                height: 1,
+              ),
+              Container(
+                width: 350,
+                height: height,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: kTextColor,
+                      width: 1,
+                    ),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Email tidak dapat diubah."),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          getValue,
+                          style: TextStyle(fontSize: 16, height: fontHeight, color: Colors.grey),
                         ),
                       ),
                     ),

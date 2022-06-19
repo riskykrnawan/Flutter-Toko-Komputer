@@ -77,9 +77,8 @@ class _ShoppingCartTabState extends State<ShoppingCartTab> {
                               animType: AnimType.SCALE,
                               headerAnimationLoop: false,
                               dialogType: DialogType.SUCCES,
-                              showCloseIcon: true,
-                              title: 'Berhasil!',
-                              desc: 'Transaksi Berhasil',
+                              title: 'Transaksi Berhasil',                   
+                              desc: 'Barang telah akan dikirmkan secepatnya',
                               btnOkOnPress: () {
                                 debugPrint('OnClcik');
                               },

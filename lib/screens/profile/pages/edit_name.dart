@@ -1,4 +1,6 @@
 import 'package:acul_komputer/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:acul_komputer/screens/profile/user/UserData.dart';
@@ -18,6 +20,9 @@ class EditNameFormPageState extends State<EditNameFormPage> {
   final firstNameController = TextEditingController();
   final secondNameController = TextEditingController();
   var user = UserData.myUser;
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  CollectionReference users = FirebaseFirestore.instance.collection("users");
 
   @override
   void dispose() {
@@ -60,6 +65,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                           height: 100,
                           width: 150,
                           child: TextFormField(
+                            style: TextStyle(color: Colors.white),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Kolom 1 Kosong';
@@ -87,6 +93,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                           height: 100,
                           width: 150,
                           child: TextFormField(
+                            style: TextStyle(color: Colors.white),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Kolom 2 Kosong';
@@ -124,10 +131,16 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                             if (_formKey.currentState!.validate() &&
                                 isAlpha(firstNameController.text +
                                     secondNameController.text)) {
-                              updateUserValue(firstNameController.text +
-                                  " " +
-                                  secondNameController.text);
+                              updateUserValue("${firstNameController.text} ${secondNameController.text}");
+                                users.doc(auth.currentUser!.uid).update(
+                                  { 'fullname': "${firstNameController.text} ${secondNameController.text}" }
+                                );
                               Navigator.pop(context);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Nama Berhasil diubah."),
+                                ),
+                              );
                             }
                           },
                           child: const Text(

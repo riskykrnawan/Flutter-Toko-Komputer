@@ -14,6 +14,8 @@ class _EditDescriptionFormPageState extends State<EditDescriptionFormPage> {
   final descriptionController = TextEditingController();
   var user = UserData.myUser;
 
+  
+
   @override
   void dispose() {
     descriptionController.dispose();
@@ -92,6 +94,7 @@ class _EditDescriptionFormPageState extends State<EditDescriptionFormPage> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             updateUserValue(descriptionController.text);
+                            
                             Navigator.pop(context);
                           }
                         },
